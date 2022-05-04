@@ -10,15 +10,15 @@ class LabeledInputField extends StatelessWidget {
   final Widget? endIcon;
 
   final BorderRadius borderFieldRadius = BorderRadius.circular(12.0);
-
-  // Todo вынести
-  final Color primaryColor = const Color(0xff146678);
+  final Color borderColor = Colors.black.withOpacity(0.15);
 
   LabeledInputField({Key? key, this.label = "", this.controller, this.focus, this.isTextVisible = true, this.endIcon })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Color primaryColor = Theme.of(context).primaryColor;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,9 +31,9 @@ class LabeledInputField extends StatelessWidget {
           style: GoogleFonts.montserrat(fontSize: 16.0),
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              border: OutlineInputBorder(
+              enabledBorder: OutlineInputBorder(
                 borderRadius: borderFieldRadius,
-                borderSide: const BorderSide(color: Color(0xff979797)),
+                borderSide: BorderSide(color: borderColor),
               ),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor, width: 2),

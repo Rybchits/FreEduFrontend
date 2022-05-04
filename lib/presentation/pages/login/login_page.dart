@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freedu_frontend/presentation/widgets/labeled_input_field.dart';
+import 'package:freedu_frontend/utils/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,9 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   bool _passwordVisible = false;
-
-  // Todo вынести
-  Color primaryColor = const Color(0xff146678);
 
   @override
   void initState() {
@@ -57,11 +55,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
 
+    final Color primaryColor = Theme.of(context).primaryColor;
+
     final passwordEyeIcon = IconButton(
         padding: const EdgeInsets.only(right: 15),
         icon: Icon(
           _passwordVisible ? Icons.visibility : Icons.visibility_off,
-          color: const Color.fromRGBO(0, 0, 0, 60)),
+          color: Theme.of(context).primaryColorLight),
         onPressed: switchPasswordVisible
     );
 
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Text('Зарегистрироваться',
           style: GoogleFonts.montserrat(
             fontSize: 16.0,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             decoration: TextDecoration.underline,
             color: primaryColor,
           ),
@@ -101,12 +101,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background_login.jpg"),
-                  fit: BoxFit.cover,
-                ),
-            ),
+            decoration: const BoxDecoration(image: Style.loginBackgroundImage),
             child: Center(
               child: Container(
                 width: MediaQuery.of(context).size.width/3,
@@ -123,11 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                         margin: const EdgeInsets.only(bottom: 25)),
                     Container(
                         child: passwordField,
-                        margin: const EdgeInsets.only(bottom: 25)),
+                        margin: const EdgeInsets.only(bottom: 30)),
                     Container(
                         child: loginButton,
-                        height: 36,
-                        margin: const EdgeInsets.only(bottom: 25)),
+                        height: 40,
+                        margin: const EdgeInsets.only(bottom: 20)),
                     Container(
                       child: signUpLink,
                     )
