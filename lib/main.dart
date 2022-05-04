@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freedu_frontend/presentation/pages/login/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Freedu',
-      home: Center(
-        child: Text("freedu", style: TextStyle(color: Colors.black, decoration: TextDecoration.none),),
-      ),
+      home: LoginPage(),
     );
   }
 }
