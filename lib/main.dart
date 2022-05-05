@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freedu_frontend/presentation/pages/login/login_page.dart';
+import 'package:freedu_frontend/presentation/pages/registration/registration_page.dart';
 import 'package:freedu_frontend/utils/style.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Freedu',
       theme: Style.main,
-      home: const LoginPage(),
+      home: const RegistrationPage(),
     );
   }
 }
