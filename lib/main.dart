@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:freedu_frontend/presentation/pages/login/login_page.dart';
-import 'package:freedu_frontend/presentation/pages/registration/registration_page.dart';
+import 'package:freedu_frontend/utils/router/router.gr.dart';
 import 'package:freedu_frontend/utils/style.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Freedu',
       theme: Style.main,
-      home: const RegistrationPage(),
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }

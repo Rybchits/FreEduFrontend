@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:freedu_frontend/presentation/widgets/labeled_input_field.dart';
 import 'package:freedu_frontend/utils/style.dart';
@@ -99,7 +100,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           color: primaryColor,
         ),
       ),
-      onTap: null,
+      onTap: () => AutoRouter.of(context).pushNamed("/login"),
     );
 
 
