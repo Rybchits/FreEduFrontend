@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/labeled_input_field.dart';
 import 'package:freedu_frontend/utils/style.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -71,19 +72,7 @@ class _LoginPageState extends State<LoginPage> {
     final passwordField = LabeledInputField(label: "Password", controller: _passwordController, focus: _passwordFocusNode,
         isTextVisible: _passwordVisible, endIcon: passwordEyeIcon);
 
-    final loginButton = ElevatedButton(
-      onPressed: onLoginButtonClick,
-      child: Text("Войти",
-        textAlign: TextAlign.center,
-        style: GoogleFonts.montserrat(fontSize: 16.0, color: Colors.white)),
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(12.0)),
-          primary: primaryColor,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          minimumSize: Size.fromWidth(MediaQuery.of(context).size.width/6),
-          elevation: 5.0,
-        ),
-    );
+    final loginButton = ActionButton(label: "Войти", color: primaryColor, onClick: onLoginButtonClick);
 
     final signUpLink = InkWell(
       child: Text('Зарегистрироваться',
@@ -123,9 +112,10 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                         child: loginButton,
                         height: 40,
+                        width: MediaQuery.of(context).size.width/6,
                         margin: const EdgeInsets.only(bottom: 20)),
                     Container(
-                      child: signUpLink,
+                      child: signUpLink
                     )
                   ],
                 ),

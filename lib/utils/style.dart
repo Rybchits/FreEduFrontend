@@ -21,4 +21,9 @@ class Style {
     image: AssetImage("assets/images/background_login.jpg"),
     fit: BoxFit.cover,
   );
+
+  static const mainBackgroundImage = DecorationImage(
+    image: AssetImage("assets/images/background_main.jpg"),
+    fit: BoxFit.cover,
+  );
 }

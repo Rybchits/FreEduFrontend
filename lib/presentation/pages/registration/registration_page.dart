@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/labeled_input_field.dart';
 import 'package:freedu_frontend/utils/style.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -78,18 +79,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final repeatPasswordTextField = LabeledInputField(label: "Повторите пароль", controller: _passwordRepeatController,
         focus: _passwordRepeatFocusNode, isTextVisible: false);
 
-    final registrationButton = ElevatedButton(
-      onPressed: onRegistrationBtnClick,
-      child: Text("Зарегистрироваться",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.montserrat(fontSize: 16.0, color: Colors.white)),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(12.0)),
-        primary: primaryColor,
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        minimumSize: Size.fromWidth(MediaQuery.of(context).size.width/6),
-      ),
-    );
+    final registrationButton = ActionButton(label: "Зарегистрироваться", color: primaryColor,
+        onClick: onRegistrationBtnClick);
 
     final signInLink = InkWell(
       child: Text('У меня уже есть аккаунт',
@@ -136,6 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           child: registrationButton,
                           margin: const EdgeInsets.only(bottom: 20),
                           height: 40,
+                          width: MediaQuery.of(context).size.width/6,
                         ),
                         Container(
                             child: signInLink
