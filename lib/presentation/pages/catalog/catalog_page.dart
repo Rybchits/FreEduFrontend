@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:freedu_frontend/models/course_class.dart';
+import 'package:freedu_frontend/models/user_class.dart';
 import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/grid_courses_cards.dart';
 import 'package:freedu_frontend/presentation/widgets/search_field.dart';
@@ -15,6 +17,18 @@ class CatalogCoursesPage extends StatefulWidget {
 class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
   final _searchController = TextEditingController();
   final _searchFocusNode = FocusNode();
+
+  final List<Course> _courses = [
+    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
+    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
+        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
+    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
+    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
+        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
+    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
+    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
+        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
+  ];
 
   @override
   void initState() {
@@ -52,9 +66,9 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
             children: [
               const SizedBox( height: 130 ),
               SearchField(controller: _searchController, focus: _searchFocusNode),
-              const Expanded(child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: GridCoursesCards(),
+              Expanded(child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: GridCoursesCards(courses: _courses),
               ))
             ],
           ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:freedu_frontend/models/course_class.dart';
 import 'package:freedu_frontend/presentation/widgets/courses_card.dart';
 
 class GridCoursesCards extends StatelessWidget {
-  const GridCoursesCards({Key? key}) : super(key: key);
+  final List<Course> courses;
+  const GridCoursesCards({Key? key, required this.courses}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +15,10 @@ class GridCoursesCards extends StatelessWidget {
         mainAxisSpacing: 15,
         crossAxisSpacing: 10
       ),
-      itemCount: 7,
+      itemCount: courses.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        return const CoursesCard();
+        return CoursesCard(course: courses[index]);
       });
   }
 }
