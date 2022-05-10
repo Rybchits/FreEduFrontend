@@ -5,6 +5,7 @@ import 'package:freedu_frontend/models/user_class.dart';
 import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/grid_courses_cards.dart';
 import 'package:freedu_frontend/presentation/widgets/search_field.dart';
+import 'package:freedu_frontend/presentation/widgets/sidebar.dart';
 import 'package:freedu_frontend/utils/style.dart';
 
 class CatalogCoursesPage extends StatefulWidget {
@@ -52,26 +53,41 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isAuth = true;
+
+    final _searchedGridCourses = Column(
+      children: [
+        SizedBox( height: isAuth? 0 : 130 ),
+        SearchField(controller: _searchController, focus: _searchFocusNode),
+        Expanded(child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: GridCoursesCards(courses: _courses),
+        ))
+      ],
+    );
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: _appBar(context),
+      appBar: !isAuth? _appBar(context) : null,
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(image: Style.mainBackgroundImage),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 300),
+        // Условие отрисовки экрана в зависимости от авторизации пользователя
+        child: isAuth? Row(
+          children: [
+            const Expanded(child: Sidebar(), flex: 2),
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(90, 50, 90, 20),
+                  child: _searchedGridCourses,
+                ),
+                flex: 9)
+          ],
+        ) :
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 270),
           alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              const SizedBox( height: 130 ),
-              SearchField(controller: _searchController, focus: _searchFocusNode),
-              Expanded(child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: GridCoursesCards(courses: _courses),
-              ))
-            ],
-          ),
+          child: _searchedGridCourses,
         ),
       ),
     );

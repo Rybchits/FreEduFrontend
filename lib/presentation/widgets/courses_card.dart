@@ -16,7 +16,7 @@ class CoursesCard extends StatelessWidget {
       return Chip(
         label: Text(
           label,
-          style: GoogleFonts.montserrat(color: Colors.white, fontSize: 12),
+          style: GoogleFonts.montserrat(color: Colors.white, fontSize: 14),
         ),
         backgroundColor: secondaryColor,
         elevation: 2.0,
@@ -53,7 +53,7 @@ class CoursesCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(course.name,
-                      style: GoogleFonts.montserrat(fontSize: 16.0, color: primaryColor, fontWeight: FontWeight.w600)),
+                      style: GoogleFonts.montserrat(fontSize: 18.0, color: primaryColor, fontWeight: FontWeight.w600)),
                   Container(
                     margin: const EdgeInsets.only(top: 5, bottom: 10),
                     child: buildChip(course.tags.first),
@@ -64,12 +64,12 @@ class CoursesCard extends StatelessWidget {
                     children: [
                       Text("Автор: ${course.creator?.name ?? "не указан"}",
                           style:
-                              GoogleFonts.montserrat(fontSize: 12.0, color: primaryColor, fontWeight: FontWeight.w400)),
+                              GoogleFonts.montserrat(fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w400)),
                       Row(children: [
                         Icon(Icons.person, color: primaryColor, size: 22),
                         Text(course.numberStudents.toString(),
                             style: GoogleFonts.montserrat(
-                                fontSize: 12.0, color: primaryColor, fontWeight: FontWeight.w500)),
+                                fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w500)),
                       ])
                     ],
                   ),
