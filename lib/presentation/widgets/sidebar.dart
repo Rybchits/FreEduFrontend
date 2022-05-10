@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,7 +7,7 @@ class Sidebar extends StatelessWidget {
 
   final routes = const [
     {"title": "каталог курсов", "route": "/catalog", "name": "CatalogCoursesPage"},
-    {"title": "мое обучение", "route": "/catalog", "name": ""},
+    {"title": "мое обучение", "route": "/my_education", "name": "UserEducationPage"},
     {"title": "профиль", "route": "/catalog", "name": ""},
     {"title": "преподавание", "route": "/catalog", "name": ""}
   ];
@@ -35,7 +36,7 @@ class Sidebar extends StatelessWidget {
                       routes[index]["title"]!,
                       style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 18, letterSpacing: 0.2),
                     ),
-                    onTap: () {},
+                    onTap: () => AutoRouter.of(context).pushNamed(routes[index]["route"]!),
                     selected: ModalRoute.of(context)?.settings.name == routes[index]["name"]!,
                     textColor: notSelectedColor,
                     selectedColor: selectedColor,

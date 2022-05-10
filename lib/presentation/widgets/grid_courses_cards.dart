@@ -4,7 +4,9 @@ import 'package:freedu_frontend/presentation/widgets/courses_card.dart';
 
 class GridCoursesCards extends StatelessWidget {
   final List<Course> courses;
-  const GridCoursesCards({Key? key, required this.courses}) : super(key: key);
+  final TypeCoursesCard type;
+
+  const GridCoursesCards({Key? key, required this.courses, this.type = TypeCoursesCard.DEFAULT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class GridCoursesCards extends StatelessWidget {
       itemCount: courses.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
-        return CoursesCard(course: courses[index]);
+        return CoursesCard(course: courses[index], type: type);
       });
   }
 }

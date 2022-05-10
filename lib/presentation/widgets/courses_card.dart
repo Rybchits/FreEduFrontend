@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:freedu_frontend/models/course_class.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+
+enum TypeCoursesCard { DEFAULT, EDIT, PROGRESS }
 
 class CoursesCard extends StatelessWidget {
   final Course course;
+  final TypeCoursesCard type;
 
-  const CoursesCard({Key? key, required this.course}) : super(key: key);
+  const CoursesCard({Key? key, required this.course, this.type = TypeCoursesCard.DEFAULT}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,32 @@ class CoursesCard extends StatelessWidget {
         ),
       );
     }
+
+    final Widget additionalInformation = type == TypeCoursesCard.PROGRESS
+        ? LinearPercentIndicator(
+            animation: true,
+            animationDuration: 1500,
+            lineHeight: 15.0,
+            percent: 0.5,
+            padding: EdgeInsets.zero,
+            barRadius: const Radius.circular(20),
+            trailing: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text("50 %",
+                  style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600, color: primaryColor)),
+            ),
+            progressColor: primaryColor.withOpacity(0.8 * 0.5),
+            backgroundColor: Colors.grey.withOpacity(0.2),
+          )
+        : Row(mainAxisSize: MainAxisSize.max, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text("Автор: ${course.creator?.name ?? "не указан"}",
+                style: GoogleFonts.montserrat(fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w400)),
+            Row(children: [
+              Icon(Icons.person, color: primaryColor, size: 22),
+              Text(course.numberStudents.toString(),
+                  style: GoogleFonts.montserrat(fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w500)),
+            ])
+          ]);
 
     return Card(
       elevation: 4.0,
@@ -55,24 +85,10 @@ class CoursesCard extends StatelessWidget {
                   Text(course.name,
                       style: GoogleFonts.montserrat(fontSize: 18.0, color: primaryColor, fontWeight: FontWeight.w600)),
                   Container(
-                    margin: const EdgeInsets.only(top: 5, bottom: 10),
+                    margin: const EdgeInsets.only(top: 5, bottom: 15),
                     child: buildChip(course.tags.first),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Автор: ${course.creator?.name ?? "не указан"}",
-                          style:
-                              GoogleFonts.montserrat(fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w400)),
-                      Row(children: [
-                        Icon(Icons.person, color: primaryColor, size: 22),
-                        Text(course.numberStudents.toString(),
-                            style: GoogleFonts.montserrat(
-                                fontSize: 14.0, color: primaryColor, fontWeight: FontWeight.w500)),
-                      ])
-                    ],
-                  ),
+                  additionalInformation,
                 ],
               ),
             ),
