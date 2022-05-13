@@ -60,7 +60,7 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
         SizedBox( height: isAuth? 0 : 130 ),
         SearchField(controller: _searchController, focus: _searchFocusNode),
         Expanded(child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          padding: const EdgeInsets.only(top: 15.0),
           child: GridCoursesCards(courses: _courses),
         ))
       ],
@@ -75,13 +75,13 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
         // Условие отрисовки экрана в зависимости от авторизации пользователя
         child: isAuth? Row(
           children: [
-            const Expanded(child: Sidebar(), flex: 2),
+            const Expanded(child: Sidebar(), flex: 1),
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(90, 50, 90, 20),
+                  padding: const EdgeInsets.fromLTRB(90, 40, 90, 0),
                   child: _searchedGridCourses,
                 ),
-                flex: 9)
+                flex: 5)
           ],
         ) :
         Container(

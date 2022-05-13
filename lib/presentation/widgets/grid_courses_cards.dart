@@ -10,17 +10,31 @@ class GridCoursesCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 15,
-        crossAxisSpacing: 10
-      ),
-      itemCount: courses.length,
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) {
-        return CoursesCard(course: courses[index], type: type);
-      });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int numberCardsInRow = 0;
+        if (constraints.maxWidth > 1300) {
+          numberCardsInRow = 4;
+        } else if(constraints.maxWidth > 1000) {
+          numberCardsInRow = 3;
+        } else {
+          numberCardsInRow = 2;
+        }
+
+        return GridView.builder(
+            padding: const EdgeInsets.all(0),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape?
+                numberCardsInRow : numberCardsInRow-1,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 10
+            ),
+            itemCount: courses.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return CoursesCard(course: courses[index], type: type);
+            });
+      }
+    );
   }
 }

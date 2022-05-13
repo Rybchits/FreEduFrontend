@@ -8,7 +8,7 @@ class Sidebar extends StatelessWidget {
   final routes = const [
     {"title": "каталог курсов", "route": "/catalog", "name": "CatalogCoursesPage"},
     {"title": "мое обучение", "route": "/my_education", "name": "UserEducationPage"},
-    {"title": "профиль", "route": "/catalog", "name": ""},
+    {"title": "профиль", "route": "/profile", "name": "ProfilePage"},
     {"title": "преподавание", "route": "/catalog", "name": ""}
   ];
 
@@ -19,34 +19,30 @@ class Sidebar extends StatelessWidget {
 
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: Colors.white,
-      child: Column(children: [
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          right: BorderSide(width: 1.5, color: selectedColor.withOpacity(0.2)),
+        ),
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Image.asset("assets/images/main_logo.jpg", height: 90),
+          padding: const EdgeInsets.fromLTRB(16, 25, 16, 10),
+          child: Image.asset("assets/images/main_logo.jpg", height: 60),
         ),
         Expanded(
-          child: Container(
-            child: ListView.builder(
-              itemCount: routes.length,
-              itemBuilder: (context, index) =>
-                  ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-                    title: Text(
-                      routes[index]["title"]!,
-                      style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 18, letterSpacing: 0.2),
-                    ),
-                    onTap: () => AutoRouter.of(context).pushNamed(routes[index]["route"]!),
-                    selected: ModalRoute.of(context)?.settings.name == routes[index]["name"]!,
-                    textColor: notSelectedColor,
-                    selectedColor: selectedColor,
-                  ),
-            ),
-            margin: const EdgeInsets.only(bottom: 50),
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(width: 1.5, color: selectedColor.withOpacity(0.2)),
+          child: ListView.builder(
+            itemCount: routes.length,
+            itemBuilder: (context, index) => ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+              title: Text(
+                routes[index]["title"]!,
+                style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 18, letterSpacing: 0.2),
               ),
+              onTap: () => AutoRouter.of(context).pushNamed(routes[index]["route"]!),
+              selected: ModalRoute.of(context)?.settings.name == routes[index]["name"]!,
+              textColor: notSelectedColor,
+              selectedColor: selectedColor,
             ),
           ),
         )
