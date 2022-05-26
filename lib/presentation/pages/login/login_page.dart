@@ -1,18 +1,24 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freedu_frontend/models/user_class.dart';
 import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/labeled_input_field.dart';
+import 'package:freedu_frontend/providers/auth_provider.dart';
+import 'package:freedu_frontend/repositories/auth_repository.dart';
 import 'package:freedu_frontend/utils/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailFocusNode = FocusNode();
@@ -45,6 +51,16 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> onLoginButtonClick() async {
     String email = _emailController.text;
     String password = _passwordController.text;
+
+    try {
+      await ref.read(authRepository).login(email, password);
+      User user = await ref.read(authRepository).fetchAuthUser();
+      ref.read(authUserState.notifier).update((state) => user);
+
+      AutoRouter.of(context).pushNamed("/catalog");
+    } catch (error){
+      log(error.toString());
+    }
   }
 
   // Переключить значение видимости пароля

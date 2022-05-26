@@ -1,21 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freedu_frontend/models/user_class.dart';
 import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/sidebar.dart';
+import 'package:freedu_frontend/providers/auth_provider.dart';
 import 'package:freedu_frontend/utils/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool isEditMode = false;
-  User me = User(name: "Рыбчиц Григорий", email: "test@email.com", telegram: "test_tg");
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             Container(height: 250, width: 250,
                                 child: _userAvatar(),
                                 margin: const EdgeInsets.only(right: 40)),
-                            Expanded(child: _userInfo(context: context, user: me))
+                            Expanded(child: _userInfo(context: context,
+                                user: ref.watch(authUserState) ?? User(name: "Не авторизован")))
                           ]),
                         ),
                       ]),
