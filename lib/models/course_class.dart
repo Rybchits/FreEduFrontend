@@ -5,6 +5,7 @@ import 'user_class.dart';
 class Course {
   int? id;
   String name;
+  String description;
   String audience;
   String initialSkills;
   int numberStudents;
@@ -16,6 +17,7 @@ class Course {
   Course({
     this.id,
     this.name = "",
+    this.description = "",
     this.audience = "",
     this.initialSkills = "",
     this.creator,

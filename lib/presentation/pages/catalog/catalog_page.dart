@@ -1,35 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freedu_frontend/models/course_class.dart';
-import 'package:freedu_frontend/models/user_class.dart';
 import 'package:freedu_frontend/presentation/widgets/action_button.dart';
 import 'package:freedu_frontend/presentation/widgets/grid_courses_cards.dart';
 import 'package:freedu_frontend/presentation/widgets/search_field.dart';
 import 'package:freedu_frontend/presentation/widgets/sidebar.dart';
+import 'package:freedu_frontend/providers/auth_provider.dart';
+import 'package:freedu_frontend/providers/courses_provider.dart';
 import 'package:freedu_frontend/utils/style.dart';
 
-class CatalogCoursesPage extends StatefulWidget {
+class CatalogCoursesPage extends ConsumerStatefulWidget {
   const CatalogCoursesPage({Key? key}) : super(key: key);
 
   @override
-  State<CatalogCoursesPage> createState() => _CatalogCoursesPageState();
+  _CatalogCoursesPageState createState() => _CatalogCoursesPageState();
 }
 
-class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
+class _CatalogCoursesPageState extends ConsumerState<CatalogCoursesPage> {
   final _searchController = TextEditingController();
   final _searchFocusNode = FocusNode();
+  late final List<Course>? _courses = ref.watch(listCoursesState)?.toList();
 
-  final List<Course> _courses = [
-    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
-    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
-        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
-    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
-    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
-        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
-    Course(name: "Давайте рисовать!", numberStudents: 8, creator: User(name: "Марат Гумеров"), tags: ["Искусство"]),
-    Course(name: "Новый курс", numberStudents: 1000, tags: ["IT технологии"],
-        image: "https://pajournal.com.ua/wp-content/uploads/2021/07/learning-2707.jpg"),
-  ];
 
   @override
   void initState() {
@@ -53,7 +45,7 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isAuth = true;
+    bool isAuth = ref.watch(authUserState) != null;
 
     final _searchedGridCourses = Column(
       children: [
@@ -61,7 +53,7 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
         SearchField(controller: _searchController, focus: _searchFocusNode),
         Expanded(child: Padding(
           padding: const EdgeInsets.only(top: 15.0),
-          child: GridCoursesCards(courses: _courses),
+          child: GridCoursesCards(courses: _courses ?? []),
         ))
       ],
     );
@@ -85,7 +77,7 @@ class _CatalogCoursesPageState extends State<CatalogCoursesPage> {
           ],
         ) :
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 270),
+          padding: const EdgeInsets.symmetric(horizontal: 250),
           alignment: Alignment.topCenter,
           child: _searchedGridCourses,
         ),

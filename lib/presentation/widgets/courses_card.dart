@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:freedu_frontend/models/course_class.dart';
+import 'package:freedu_frontend/utils/router/router.gr.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -57,43 +59,46 @@ class CoursesCard extends StatelessWidget {
             ])
           ]);
 
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
-            child: Container(
-              alignment: Alignment.topCenter,
-              padding: const EdgeInsets.all(5.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: FadeInImage.assetNetwork(
-                  placeholder: "assets/images/default-course-image.jpg",
-                  image: course.image ?? "",
-                  imageErrorBuilder: (context, error, stackTrace) =>
-                      Image.asset("assets/images/default-course-image.jpg"),
+    return GestureDetector(
+      onTap: () => context.pushRoute(CoursePage(courseId: course.id ?? 0)),
+      child: Card(
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Expanded(
+              child: Container(
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.all(5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: "assets/images/default-course-image.jpg",
+                    image: course.image ?? "",
+                    imageErrorBuilder: (context, error, stackTrace) =>
+                        Image.asset("assets/images/default-course-image.jpg"),
+                  ),
                 ),
               ),
-            ),
-            flex: 13),
-        Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(course.name,
-                      style: GoogleFonts.montserrat(fontSize: 18.0, color: primaryColor, fontWeight: FontWeight.w600)),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5, bottom: 15),
-                    child: buildChip(course.tags.first),
-                  ),
-                  additionalInformation,
-                ],
+              flex: 13),
+          Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(course.name,
+                        style: GoogleFonts.montserrat(fontSize: 18.0, color: primaryColor, fontWeight: FontWeight.w600)),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, bottom: 15),
+                      child: buildChip(course.tags.first),
+                    ),
+                    additionalInformation,
+                  ],
+                ),
               ),
-            ),
-            flex: 7)
-      ]),
+              flex: 7)
+        ]),
+      ),
     );
   }
 }
